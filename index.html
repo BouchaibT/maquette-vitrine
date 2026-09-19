@@ -173,15 +173,15 @@
 
   <section class="hero">
     <div class="diapos">
-      <img src="images/hero_villa_luxe.jpg" alt="Villa avec piscine au coucher du soleil">
-      <img src="images/patio_riad.jpg" alt="Patio d'un riad marocain">
-      <img src="images/toit_matin.jpg" alt="Terrasse sur le toit au lever du jour">
+      <img src="images/hero_villa_luxe.webp" alt="Villa avec piscine au coucher du soleil">
+      <img data-src="images/patio_riad.webp" alt="Patio d'un riad marocain">
+      <img data-src="images/toit_matin.webp" alt="Terrasse sur le toit au lever du jour">
     </div>
     <div class="voile"></div>
     <div class="dedans">
       <div class="contenu">
         <nav>
-          <div class="marque"><img src="images/bulle.png" alt="">Agence WebBot</div>
+          <div class="marque"><img loading="lazy" src="images/bulle.png" alt="">Agence WebBot</div>
           <div class="menu"><a href="#assistant">L'assistant</a><a href="#fonctionnement">Fonctionnement</a><a href="#guides">Guides</a><a href="#contact">Contact</a></div>
           <div class="bouton-nav">Demander une démo</div>
         </nav>
@@ -248,7 +248,7 @@
   </div>
 
   <section class="banniere">
-    <img src="images/medina_soir.jpg" alt="Ruelle de médina le soir">
+    <img loading="lazy" src="images/medina_soir.webp" alt="Ruelle de médina le soir">
     <div class="voile"></div>
     <div class="texte revele">
       <h2>Vous n'embauchez personne.<br>Vous ajoutez une personne.</h2>
@@ -298,7 +298,7 @@
       </div>
       <div class="grille revele">
         <div class="carte">
-          <img src="images/vignette_cles.jpg" alt="">
+          <img loading="lazy" src="images/vignette_cles.webp" alt="">
           <div class="corps">
             <span class="etq">Conciergerie</span>
             <h3>Automatiser une conciergerie Airbnb : WhatsApp et IA, test réel</h3>
@@ -307,7 +307,7 @@
           </div>
         </div>
         <div class="carte">
-          <img src="images/terrasse_riad.jpg" alt="">
+          <img loading="lazy" src="images/terrasse_riad.webp" alt="">
           <div class="corps">
             <span class="etq">Gestion</span>
             <h3>Pilotage de trésorerie IA : test réel en TPE</h3>
@@ -316,7 +316,7 @@
           </div>
         </div>
         <div class="carte">
-          <img src="images/riad_travail.jpg" alt="">
+          <img loading="lazy" src="images/riad_travail.webp" alt="">
           <div class="corps">
             <span class="etq">Facturation</span>
             <h3>Facturation électronique : ce qui est exigé d'un indépendant</h3>
@@ -330,7 +330,7 @@
 
   <section class="contact" id="contact">
     <div class="fond">
-      <img src="images/patio_riad.jpg" alt="">
+      <img loading="lazy" src="images/patio_riad.webp" alt="">
       <div class="voile"></div>
     </div>
     <div class="dedans revele">
@@ -349,7 +349,7 @@
     <div class="contenu">
       <div class="pied">
         <div class="pied-gauche">
-          <img src="images/bulle.png" alt="">
+          <img loading="lazy" src="images/bulle.png" alt="">
           <span>Agence WebBot — contact@mastackpro.pro</span>
         </div>
         <div class="pied-droite">
@@ -372,6 +372,18 @@
   } else {
     cibles.forEach(c => c.classList.add('vu'));
   }
+</script>
+
+<script>
+  // charge les photos suivantes seulement après l'affichage de la page
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      document.querySelectorAll('img[data-src]').forEach(function (img) {
+        img.src = img.getAttribute('data-src');
+        img.removeAttribute('data-src');
+      });
+    }, 900);
+  });
 </script>
 </body>
 </html>
