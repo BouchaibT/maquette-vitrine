@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Agence WebBot — l'assistant WhatsApp des conciergeries</title>
+<style>
+  @font-face{font-family:'Fraunces';font-style:italic;font-weight:400;font-display:swap;src:url('polices/fraunces-400-italic.woff2') format('woff2')}
+  @font-face{font-family:'Fraunces';font-style:normal;font-weight:400;font-display:swap;src:url('polices/fraunces-400-normal.woff2') format('woff2')}
+  @font-face{font-family:'Fraunces';font-style:normal;font-weight:600;font-display:swap;src:url('polices/fraunces-600-normal.woff2') format('woff2')}
+  @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('polices/inter-400-normal.woff2') format('woff2')}
+  @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('polices/inter-500-normal.woff2') format('woff2')}
+  @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('polices/inter-600-normal.woff2') format('woff2')}
+  @font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url('polices/inter-700-normal.woff2') format('woff2')}
+
+  :root{
+    --noir:#14100A; --encre:#241D13; --gris:#6B5F50; --gris2:#94897A;
+    --trait:#EADFCB; --sable:#FBF4E8; --sable2:#F5E9D6; --blanc:#FFFFFF;
+    --bleu:#0B5FFF; --terre:#B84A24; --vert:#0E7A5F;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--blanc); color:var(--encre); font-family:'Inter',-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased}
+  .contenu{max-width:1240px; margin:0 auto; padding:0 40px}
+  h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif; font-weight:600; letter-spacing:-.02em}
+  img{max-width:100%}
+
+  /* ---------- ouverture plein écran avec défilement ---------- */
+  .hero{position:relative; height:820px; overflow:hidden; background:#14100A}
+  .diapos{position:absolute; inset:0}
+  .diapos img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; animation:fondu 21s infinite ease-in-out}
+  .diapos img:nth-child(1){animation-delay:0s}
+  .diapos img:nth-child(2){animation-delay:7s}
+  .diapos img:nth-child(3){animation-delay:14s}
+  @keyframes fondu{0%{opacity:0} 4%{opacity:1} 33%{opacity:1} 37%{opacity:0} 100%{opacity:0}}
+  .hero .voile{position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,16,10,.66) 0%,rgba(20,16,10,.28) 40%,rgba(20,16,10,.78) 100%)}
+  .hero .dedans{position:absolute; inset:0; display:flex; flex-direction:column}
+  nav{display:flex; align-items:center; justify-content:space-between; padding:30px 0}
+  .marque{display:flex; align-items:center; gap:13px; color:#fff; font-family:'Fraunces',Georgia,serif; font-weight:600; font-size:23px; letter-spacing:-.02em}
+  .marque img{width:40px; height:40px; border-radius:11px}
+  .menu{display:flex; gap:34px; color:#EDE5D8; font-size:16px; font-weight:500}
+  .menu span{cursor:pointer}
+  .bouton-nav{background:#fff; color:var(--encre); padding:14px 27px; border-radius:99px; font-weight:600; font-size:15.5px; cursor:pointer}
+
+  .hero-titre{margin:auto 0; padding-bottom:30px; max-width:940px}
+  .hero-titre .haut{color:#F2E9DA; font-size:12.5px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; margin-bottom:26px}
+  .hero-titre h1{color:#fff; font-size:74px; line-height:1.04; letter-spacing:-.03em; text-shadow:0 3px 30px rgba(0,0,0,.4)}
+  .hero-titre h1 em{font-style:italic; font-weight:400; color:#F7DCC2}
+  .hero-titre p{color:#EAE0D1; font-size:21px; line-height:1.62; margin-top:26px; max-width:660px}
+  .hero-actions{display:flex; gap:14px; margin-top:40px; align-items:center; flex-wrap:wrap}
+  .btn-blanc{background:#fff; color:var(--encre); padding:20px 36px; border-radius:99px; font-weight:600; font-size:17px; cursor:pointer; display:inline-block}
+  .btn-verre{border:1.5px solid rgba(255,255,255,.55); color:#fff; padding:20px 34px; border-radius:99px; font-weight:500; font-size:17px; cursor:pointer; display:inline-block}
+  .hero-bas{display:flex; gap:14px; flex-wrap:wrap; color:#D9CDB9; font-size:14.5px; padding-bottom:34px}
+  .puce{display:inline-flex; align-items:center; gap:9px}
+  .point-vert{width:7px; height:7px; border-radius:50%; background:#4ADE9E; display:inline-block}
+
+  /* apparition au défilement */
+  .revele{opacity:0; transform:translateY(26px); transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.3,1)}
+  .revele.vu{opacity:1; transform:none}
+
+  .preuves{display:grid; grid-template-columns:repeat(4,1fr); padding:44px 0}
+  .preuve{padding:0 30px; border-right:1px solid var(--trait)}
+  .preuve:first-child{padding-left:0} .preuve:last-child{border-right:none}
+  .preuve b{font-family:'Fraunces',Georgia,serif; font-weight:600; font-size:32px; display:block; letter-spacing:-.02em}
+  .preuve span{color:var(--gris); font-size:16px; display:block; margin-top:9px; line-height:1.55}
+
+  .section{padding:96px 0}
+  .tete{display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:46px; gap:40px}
+  .tete h2{font-size:50px; line-height:1.1}
+  .tete p{color:var(--gris); font-size:18px; margin-top:18px; max-width:580px; line-height:1.68}
+  .lien{color:var(--bleu); font-weight:600; font-size:16px; border-bottom:2px solid var(--bleu); padding-bottom:4px; white-space:nowrap; cursor:pointer}
+
+  .deux{display:grid; grid-template-columns:1fr 1fr; gap:26px}
+  .boite{border-radius:24px; padding:42px 40px; border:1px solid var(--trait); background:#fff}
+  .boite.fonce{background:var(--noir); color:#F4EFE7; border-color:var(--noir)}
+  .boite h3{font-size:30px; margin-bottom:10px}
+  .boite .intro{font-size:17px; line-height:1.66; margin-bottom:22px; color:var(--gris)}
+  .boite.fonce .intro{color:#A79C89}
+  .li{display:flex; gap:13px; font-size:17.5px; line-height:1.55; padding:14px 0; border-bottom:1px solid var(--trait)}
+  .boite.fonce .li{border-color:rgba(255,255,255,.13); color:#EDE7DC}
+  .li:last-child{border-bottom:none}
+  .v{color:var(--vert); font-weight:700} .f{color:#E9A67E; font-weight:700}
+
+  .banniere{position:relative; height:480px; overflow:hidden; background:#14100A}
+  .banniere img{width:100%; height:100%; object-fit:cover; display:block}
+  .banniere .voile{position:absolute; inset:0; background:linear-gradient(90deg,rgba(20,16,10,.90) 0%,rgba(20,16,10,.60) 52%,rgba(20,16,10,.18) 100%)}
+  .banniere .texte{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; max-width:1240px; margin:0 auto; padding:0 40px}
+  .banniere h2{color:#fff; font-size:46px; max-width:780px; line-height:1.14}
+  .banniere p{color:#E3D9C9; font-size:18.5px; margin-top:20px; max-width:620px; line-height:1.7}
+  .banniere .btn-blanc{margin-top:30px; align-self:flex-start}
+
+  .etapes{display:grid; grid-template-columns:repeat(3,1fr); gap:36px}
+  .etape .n{font-size:12px; color:var(--terre); font-weight:600; letter-spacing:.18em}
+  .etape h3{font-size:28px; margin:14px 0 14px}
+  .etape p{color:var(--gris); font-size:17px; line-height:1.72}
+  .bordure{border-top:2px solid var(--encre); padding-top:28px}
+
+  .grille{display:grid; grid-template-columns:repeat(3,1fr); gap:26px}
+  .carte{background:#fff; border:1px solid var(--trait); border-radius:22px; overflow:hidden; transition:transform .4s ease, box-shadow .4s ease}
+  .carte:hover{transform:translateY(-6px); box-shadow:0 30px 60px -34px rgba(36,29,19,.45)}
+  .carte img{width:100%; height:215px; object-fit:cover; display:block; transition:transform .7s ease}
+  .carte:hover img{transform:scale(1.05)}
+  .carte .corps{padding:26px 26px 30px}
+  .etq{display:inline-block; background:var(--sable2); border:1px solid var(--trait); color:#6B5636; padding:7px 14px; border-radius:99px; font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase}
+  .carte h3{font-size:25px; line-height:1.26; margin:18px 0 12px}
+  .carte p{color:var(--gris); font-size:16px; line-height:1.66}
+  .carte .bas{margin-top:18px; color:var(--gris2); font-size:14px}
+
+  .contact{position:relative; overflow:hidden; background:#14100A}
+  .contact .fond{position:absolute; inset:0}
+  .contact .fond img{width:100%; height:100%; object-fit:cover}
+  .contact .fond .voile{position:absolute; inset:0; background:rgba(20,16,10,.86)}
+  .contact .dedans{position:relative; max-width:1240px; margin:0 auto; padding:82px 40px; display:flex; align-items:center; justify-content:space-between; gap:60px}
+  .contact h2{color:#fff; font-size:46px; line-height:1.14; max-width:690px}
+  .contact p{color:#C9BCA6; font-size:18.5px; margin-top:20px; max-width:630px; line-height:1.7}
+  .droite{display:flex; flex-direction:column; gap:16px; align-items:flex-start; flex-shrink:0}
+
+  footer{background:#14100A; color:#CFC5B4; padding:52px 0}
+  .pied{display:flex; align-items:center; justify-content:space-between}
+  .pied-gauche{display:flex; align-items:center; gap:15px; font-size:16px}
+  .pied-gauche img{width:38px; height:38px; border-radius:11px}
+  .pied-droite{display:flex; gap:16px}
+  .ic{width:48px; height:48px; border-radius:50%; border:1px solid rgba(255,255,255,.24); display:flex; align-items:center; justify-content:center; font-weight:600; font-size:15px; color:#fff; text-decoration:none; transition:background .3s ease}
+  .ic:hover{background:rgba(255,255,255,.12)}
+  .mention{margin-top:24px; color:#847A69; font-size:14px; border-top:1px solid rgba(255,255,255,.1); padding-top:20px}
+
+  /* ---------- téléphone ---------- */
+  @media (max-width:820px){
+    .contenu{padding:0 20px}
+    .hero{height:auto; min-height:660px}
+    .menu{display:none}
+    .hero-titre{padding:60px 0 30px}
+    .hero-titre h1{font-size:40px}
+    .hero-titre p{font-size:17.5px}
+    .hero-actions{gap:10px}
+    .btn-blanc,.btn-verre{padding:16px 24px; font-size:16px}
+    .preuves{grid-template-columns:1fr 1fr; gap:26px 0}
+    .preuve{padding:0 18px}
+    .preuve b{font-size:23px}
+    .preuve span{font-size:14px}
+    .section{padding:60px 0}
+    .tete{flex-direction:column; align-items:flex-start; gap:16px}
+    .tete h2{font-size:33px}
+    .tete p{font-size:16.5px}
+    .deux,.etapes,.grille{grid-template-columns:1fr; gap:22px}
+    .banniere{height:auto; padding:56px 0}
+    .banniere .texte{position:static; padding:0 20px}
+    .banniere h2{font-size:30px}
+    .banniere p{font-size:16.5px}
+    .contact .dedans{flex-direction:column; align-items:flex-start; gap:30px; padding:56px 20px}
+    .contact h2{font-size:30px}
+    .contact p{font-size:16.5px}
+    .boite{padding:30px 24px}
+    .boite h3{font-size:24px}
+    .li{font-size:16px}
+    .carte h3{font-size:22px}
+    .pied{flex-direction:column; gap:22px; align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="diapos">
+      <img src="images/hero_villa_luxe.jpg" alt="Villa avec piscine au coucher du soleil">
+      <img src="images/patio_riad.jpg" alt="Patio d'un riad marocain">
+      <img src="images/toit_matin.jpg" alt="Terrasse sur le toit au lever du jour">
+    </div>
+    <div class="voile"></div>
+    <div class="dedans">
+      <div class="contenu">
+        <nav>
+          <div class="marque"><img src="images/bulle.png" alt="">Agence WebBot</div>
+          <div class="menu"><span>L'assistant</span><span>Fonctionnement</span><span>Guides</span><span>Contact</span></div>
+          <div class="bouton-nav">Demander une démo</div>
+        </nav>
+      </div>
+      <div class="contenu" style="display:flex; flex-direction:column; flex:1">
+        <div class="hero-titre">
+          <div class="haut">Conciergeries et propriétaires au Maroc</div>
+          <h1>Le message arrive à 22 h.<br><em>Quelqu'un répond quand même.</em></h1>
+          <p>Arrivée tardive, code d'accès, panne de chauffe-eau, question sur le parking : l'assistant répond sur WhatsApp, dans la langue du voyageur, et vous passe le relais dès que ça sort du cadre que vous avez fixé.</p>
+          <div class="hero-actions">
+            <div class="btn-blanc">Demander une démonstration</div>
+            <div class="btn-verre">Comment ça marche</div>
+          </div>
+        </div>
+        <div class="hero-bas">
+          <span class="puce"><span class="point-vert"></span>Réponse en moins d'une minute</span>
+          <span class="puce">·</span>
+          <span class="puce">Jour et nuit, week-ends compris</span>
+          <span class="puce">·</span>
+          <span class="puce">Testé sur vos propres échanges avant toute décision</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="contenu">
+    <section class="preuves revele">
+      <div class="preuve"><b>Moins d'une minute</b><span>pour la première réponse, jour et nuit</span></div>
+      <div class="preuve"><b>24 h sur 24</b><span>week-ends et jours fériés compris</span></div>
+      <div class="preuve"><b>Dans sa langue</b><span>le voyageur écrit dans la sienne</span></div>
+      <div class="preuve"><b>Vous gardez la main</b><span>vous reprenez la conversation d'un message</span></div>
+    </section>
+  </div>
+
+  <div class="contenu">
+    <section class="section">
+      <div class="tete revele">
+        <div>
+          <h2>Ce qu'il traite seul,<br>et ce qu'il vous laisse</h2>
+          <p>Un assistant n'est utile que s'il sait s'arrêter. On place la limite avec vous, au moment de l'installation.</p>
+        </div>
+      </div>
+      <div class="deux revele">
+        <div class="boite">
+          <h3>Traité sans vous réveiller</h3>
+          <div class="intro">Les questions qui reviennent tous les jours, réglées immédiatement.</div>
+          <div class="li"><span class="v">✓</span><span>Arrivées tardives, départs, accès au logement</span></div>
+          <div class="li"><span class="v">✓</span><span>Code de la boîte à clés, contacts sur place</span></div>
+          <div class="li"><span class="v">✓</span><span>Wifi, chauffage, piscine, équipements</span></div>
+          <div class="li"><span class="v">✓</span><span>Adresse, stationnement, commerces proches</span></div>
+          <div class="li"><span class="v">✓</span><span>Réclamations courantes, avec la marche à suivre que vous fixez</span></div>
+        </div>
+        <div class="boite fonce">
+          <h3>Transmis immédiatement</h3>
+          <div class="intro">Dès que la situation sort du cadre, l'assistant s'arrête et vous alerte.</div>
+          <div class="li"><span class="f">→</span><span>Remise, geste commercial, litige</span></div>
+          <div class="li"><span class="f">→</span><span>Urgence technique : fuite, panne, sécurité</span></div>
+          <div class="li"><span class="f">→</span><span>Question sans réponse validée par vous</span></div>
+          <div class="li"><span class="f">→</span><span>Réclamation insistante, ou ton qui monte</span></div>
+          <div class="li"><span class="f">→</span><span>Réservation en direct, hors plateforme</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="banniere">
+    <img src="images/medina_soir.jpg" alt="Ruelle de médina le soir">
+    <div class="voile"></div>
+    <div class="texte revele">
+      <h2>Vous n'embauchez personne.<br>Vous ajoutez une personne.</h2>
+      <p>Vos voyageurs écrivent au moment où ils y pensent, souvent le soir. L'assistant prend les questions courantes, et vous restez celui qui décide, sur les vraies.</p>
+      <div class="btn-blanc">Demander une démonstration</div>
+    </div>
+  </section>
+
+  <div style="background:var(--sable)">
+    <div class="contenu">
+      <section class="section">
+        <div class="tete revele">
+          <div>
+            <h2>Comment ça se passe</h2>
+            <p>De la première conversation à la mise en service, sans que vous ayez à comprendre la technique.</p>
+          </div>
+        </div>
+        <div class="etapes revele">
+          <div class="etape bordure">
+            <span class="n">ÉTAPE 01</span>
+            <h3>On regarde vos messages</h3>
+            <p>Vous nous montrez les questions que vos voyageurs posent le plus. On part de votre logement, pas d'un modèle tout fait.</p>
+          </div>
+          <div class="etape bordure">
+            <span class="n">ÉTAPE 02</span>
+            <h3>On écrit vos réponses</h3>
+            <p>L'assistant apprend vos horaires, le logement, vos consignes. Vous validez chaque réponse avant qu'elle serve.</p>
+          </div>
+          <div class="etape bordure">
+            <span class="n">ÉTAPE 03</span>
+            <h3>Vous testez, puis on ouvre</h3>
+            <p>Vous posez vos propres questions et vous jugez sur pièces. La mise en service ne se fait qu'après votre accord.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="contenu">
+    <section class="section">
+      <div class="tete revele">
+        <div>
+          <h2>Nos guides</h2>
+          <p>Ce qu'on a testé, chiffres en main, pour les propriétaires et les gestionnaires de biens.</p>
+        </div>
+        <div class="lien">Tous les guides</div>
+      </div>
+      <div class="grille revele">
+        <div class="carte">
+          <img src="images/vignette_cles.jpg" alt="">
+          <div class="corps">
+            <span class="etq">Conciergerie</span>
+            <h3>Automatiser une conciergerie Airbnb : WhatsApp et IA, test réel</h3>
+            <p>Ce que l'assistant gère seul, ce qu'il doit transmettre, et le coût réel côté propriétaire.</p>
+            <div class="bas">Septembre 2026 · 11 min de lecture</div>
+          </div>
+        </div>
+        <div class="carte">
+          <img src="images/terrasse_riad.jpg" alt="">
+          <div class="corps">
+            <span class="etq">Gestion</span>
+            <h3>Pilotage de trésorerie IA : test réel en TPE</h3>
+            <p>Suivi des encaissements, relances, prévisionnel : ce qui tient sur la durée.</p>
+            <div class="bas">Septembre 2026 · 9 min de lecture</div>
+          </div>
+        </div>
+        <div class="carte">
+          <img src="images/riad_travail.jpg" alt="">
+          <div class="corps">
+            <span class="etq">Facturation</span>
+            <h3>Facturation électronique : ce qui est exigé d'un indépendant</h3>
+            <p>Les obligations à venir, les dates, et les outils qui font le travail à votre place.</p>
+            <div class="bas">Septembre 2026 · 8 min de lecture</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="contact">
+    <div class="fond">
+      <img src="images/patio_riad.jpg" alt="">
+      <div class="voile"></div>
+    </div>
+    <div class="dedans revele">
+      <div>
+        <h2>Montrez-nous vos messages,<br>on vous montre la réponse</h2>
+        <p>Envoyez-nous trois questions qu'un voyageur vous a posées cette semaine. On vous renvoie la conversation telle que l'assistant l'aurait traitée.</p>
+      </div>
+      <div class="droite">
+        <div class="btn-blanc">Écrire à contact@mastackpro.pro</div>
+        <div style="color:#A99B84; font-size:15px">Installation sur votre numéro WhatsApp existant.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="contenu">
+      <div class="pied">
+        <div class="pied-gauche">
+          <img src="images/bulle.png" alt="">
+          <span>Agence WebBot — contact@mastackpro.pro</span>
+        </div>
+        <div class="pied-droite">
+          <a class="ic" href="https://www.facebook.com/61594182764065" target="_blank" rel="noopener">FB</a>
+          <a class="ic" href="https://www.instagram.com/agencewebbot/" target="_blank" rel="noopener">IG</a>
+          <a class="ic" href="https://www.linkedin.com/in/hachmi-bouchaib-025280433" target="_blank" rel="noopener">in</a>
+        </div>
+      </div>
+      <div class="mention">Aucun prix n'est affiché sur ce site : chaque logement est différent. Écrivez-nous et nous vous dirons franchement ce qui est possible.</div>
+    </div>
+  </footer>
+
+<script>
+  const cibles = document.querySelectorAll('.revele');
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entrees) => {
+      entrees.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vu'); obs.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    cibles.forEach(c => obs.observe(c));
+  } else {
+    cibles.forEach(c => c.classList.add('vu'));
+  }
+</script>
+</body>
+</html>
