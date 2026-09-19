@@ -21,6 +21,7 @@
   }
   *{box-sizing:border-box; margin:0; padding:0}
   html{scroll-behavior:smooth}
+  section[id]{scroll-margin-top:24px}
   body{background:var(--blanc); color:var(--encre); font-family:'Inter',-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased}
   .contenu{max-width:1240px; margin:0 auto; padding:0 40px}
   h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif; font-weight:600; letter-spacing:-.02em}
@@ -41,7 +42,8 @@
   .marque{display:flex; align-items:center; gap:13px; color:#fff; font-family:'Fraunces',Georgia,serif; font-weight:600; font-size:23px; letter-spacing:-.02em}
   .marque img{width:40px; height:40px; border-radius:11px}
   .menu{display:flex; gap:34px; color:#EDE5D8; font-size:16px; font-weight:500; white-space:nowrap}
-  .menu span{cursor:pointer}
+  .menu a{color:inherit; text-decoration:none; cursor:pointer; transition:opacity .3s ease}
+  .menu a:hover{opacity:.75}
   .bouton-nav{background:#fff; color:var(--encre); padding:14px 27px; border-radius:99px; font-weight:600; font-size:15.5px; cursor:pointer}
 
   .hero-titre{margin:auto 0; padding-bottom:30px; max-width:940px}
@@ -180,7 +182,7 @@
       <div class="contenu">
         <nav>
           <div class="marque"><img src="images/bulle.png" alt="">Agence WebBot</div>
-          <div class="menu"><span>L'assistant</span><span>Fonctionnement</span><span>Guides</span><span>Contact</span></div>
+          <div class="menu"><a href="#assistant">L'assistant</a><a href="#fonctionnement">Fonctionnement</a><a href="#guides">Guides</a><a href="#contact">Contact</a></div>
           <div class="bouton-nav">Demander une démo</div>
         </nav>
       </div>
@@ -215,7 +217,7 @@
   </div>
 
   <div class="contenu">
-    <section class="section">
+    <section class="section" id="assistant">
       <div class="tete revele">
         <div>
           <h2>Ce qu'il traite seul,<br>et ce qu'il vous laisse</h2>
@@ -257,7 +259,7 @@
 
   <div style="background:var(--sable)">
     <div class="contenu">
-      <section class="section">
+      <section class="section" id="fonctionnement">
         <div class="tete revele">
           <div>
             <h2>Comment ça se passe</h2>
@@ -286,7 +288,7 @@
   </div>
 
   <div class="contenu">
-    <section class="section">
+    <section class="section" id="guides">
       <div class="tete revele">
         <div>
           <h2>Nos guides</h2>
@@ -326,7 +328,7 @@
     </section>
   </div>
 
-  <section class="contact">
+  <section class="contact" id="contact">
     <div class="fond">
       <img src="images/patio_riad.jpg" alt="">
       <div class="voile"></div>
