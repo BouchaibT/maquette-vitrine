@@ -25,15 +25,12 @@
   .contenu{max-width:1240px; margin:0 auto; padding:0 40px}
   h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif; font-weight:600; letter-spacing:-.02em}
   img{max-width:100%}
+  a{color:inherit; text-decoration:none}
 
   /* ---------- ouverture plein écran avec défilement ---------- */
   .hero{position:relative; height:820px; overflow:hidden; background:#14100A}
   .diapos{position:absolute; inset:0}
-  .diapos img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; animation:fondu 21s infinite ease-in-out}
-  .diapos img:nth-child(1){animation-delay:0s}
-  .diapos img:nth-child(2){animation-delay:7s}
-  .diapos img:nth-child(3){animation-delay:14s}
-  @keyframes fondu{0%{opacity:0} 4%{opacity:1} 33%{opacity:1} 37%{opacity:0} 100%{opacity:0}}
+  .diapos img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
   .hero .voile{position:absolute; inset:0; background:linear-gradient(90deg,rgba(18,14,8,.56) 0%,rgba(18,14,8,.22) 46%,rgba(18,14,8,0) 100%),linear-gradient(180deg,rgba(18,14,8,.20) 0%,rgba(18,14,8,0) 28%,rgba(18,14,8,.42) 100%)}
   .hero .dedans{position:absolute; inset:0; display:flex; flex-direction:column}
   nav{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:40px; padding:30px 0}
@@ -41,8 +38,8 @@
   .marque{display:flex; align-items:center; gap:13px; color:#fff; font-family:'Fraunces',Georgia,serif; font-weight:600; font-size:23px; letter-spacing:-.02em}
   .marque img{width:40px; height:40px; border-radius:11px}
   .menu{display:flex; gap:34px; color:#EDE5D8; font-size:16px; font-weight:500; white-space:nowrap}
-  .menu span{cursor:pointer}
-  .bouton-nav{background:#fff; color:var(--encre); padding:14px 27px; border-radius:99px; font-weight:600; font-size:15.5px; cursor:pointer}
+  .menu a{cursor:pointer}
+  .bouton-nav{display:inline-block; background:#fff; color:var(--encre); padding:14px 27px; border-radius:99px; font-weight:600; font-size:15.5px; cursor:pointer}
 
   .hero-titre{margin:auto 0; padding-bottom:30px; max-width:940px}
   .hero-titre .haut{display:inline-block; background:var(--terre); color:#fff; font-size:15px; font-weight:700; letter-spacing:.11em; text-transform:uppercase; padding:11px 22px; border-radius:99px; margin-bottom:26px; box-shadow:0 12px 30px -12px rgba(0,0,0,.6)}
@@ -171,27 +168,25 @@
 
   <section class="hero">
     <div class="diapos">
-      <img src="images/hero_villa_luxe.jpg" alt="Villa avec piscine au coucher du soleil">
-      <img src="images/patio_riad.jpg" alt="Patio d'un riad marocain">
-      <img src="images/toit_matin.jpg" alt="Terrasse sur le toit au lever du jour">
+      <img src="images/patio_riad.jpg" alt="Patio d'un riad marocain, lumière chaude, arches en zellige">
     </div>
     <div class="voile"></div>
     <div class="dedans">
       <div class="contenu">
         <nav>
           <div class="marque"><img src="images/bulle.png" alt="">Agence WebBot</div>
-          <div class="menu"><span>L'assistant</span><span>Fonctionnement</span><span>Guides</span><span>Contact</span></div>
-          <div class="bouton-nav">Demander une démo</div>
+          <div class="menu"><a href="#assistant">L'assistant</a><a href="#fonctionnement">Fonctionnement</a><a href="#guides">Guides</a><a href="#contact">Contact</a></div>
+          <a class="bouton-nav" href="#contact">Demander une démo</a>
         </nav>
       </div>
       <div class="contenu" style="display:flex; flex-direction:column; flex:1">
         <div class="hero-titre">
-          <div class="haut">Assistant WhatsApp pour conciergeries et riads</div>
+          <div class="haut">Conciergerie WhatsApp pour propriétaires au Maroc</div>
           <h1>Le message arrive à 22 h.<br><em>Quelqu'un répond quand même.</em></h1>
-          <p>Arrivée tardive, code d'accès, panne de chauffe-eau : l'assistant de votre conciergerie répond sur WhatsApp, dans la langue du voyageur, et vous passe le relais dès que ça sort du cadre que vous avez fixé.</p>
+          <p>Arrivée tardive, code d'accès, panne de chauffe-eau : l'assistant WhatsApp de votre conciergerie répond à votre place, pour les propriétaires et gestionnaires de locations au Maroc, et vous passe le relais dès que ça sort du cadre que vous avez fixé.</p>
           <div class="hero-actions">
-            <div class="btn-blanc">Demander une démonstration</div>
-            <div class="btn-verre">Comment ça marche</div>
+            <a class="btn-blanc" href="#contact">Demander une démonstration</a>
+            <a class="btn-verre" href="#fonctionnement">Comment ça marche</a>
           </div>
         </div>
         <div class="hero-bas">
@@ -215,7 +210,7 @@
   </div>
 
   <div class="contenu">
-    <section class="section">
+    <section class="section" id="assistant">
       <div class="tete revele">
         <div>
           <h2>Ce qu'il traite seul,<br>et ce qu'il vous laisse</h2>
@@ -251,13 +246,13 @@
     <div class="texte revele">
       <h2>Vous n'embauchez personne.<br>Vous ajoutez une personne.</h2>
       <p>Vos voyageurs écrivent au moment où ils y pensent, souvent le soir. L'assistant prend les questions courantes, et vous restez celui qui décide, sur les vraies.</p>
-      <div class="btn-blanc">Demander une démonstration</div>
+      <a class="btn-blanc" href="#contact">Demander une démonstration</a>
     </div>
   </section>
 
   <div style="background:var(--sable)">
     <div class="contenu">
-      <section class="section">
+      <section class="section" id="fonctionnement">
         <div class="tete revele">
           <div>
             <h2>Comment ça se passe</h2>
@@ -286,13 +281,13 @@
   </div>
 
   <div class="contenu">
-    <section class="section">
+    <section class="section" id="guides">
       <div class="tete revele">
         <div>
           <h2>Nos guides</h2>
           <p>Ce qu'on a testé, chiffres en main, pour les propriétaires et les gestionnaires de biens.</p>
         </div>
-        <div class="lien">Tous les guides</div>
+        <a class="lien" href="https://mastackpro.pro/" target="_blank" rel="noopener">Tous les guides</a>
       </div>
       <div class="grille revele">
         <div class="carte">
@@ -326,7 +321,7 @@
     </section>
   </div>
 
-  <section class="contact">
+  <section class="contact" id="contact">
     <div class="fond">
       <img src="images/patio_riad.jpg" alt="">
       <div class="voile"></div>
@@ -337,7 +332,7 @@
         <p>Envoyez-nous trois questions qu'un voyageur vous a posées cette semaine. On vous renvoie la conversation telle que l'assistant l'aurait traitée.</p>
       </div>
       <div class="droite">
-        <div class="btn-blanc">Écrire à contact@mastackpro.pro</div>
+        <a class="btn-blanc" href="mailto:contact@agencewebbot.com">Écrire à contact@agencewebbot.com</a>
         <div style="color:#A99B84; font-size:15px">Installation sur votre numéro WhatsApp existant.</div>
       </div>
     </div>
@@ -348,7 +343,7 @@
       <div class="pied">
         <div class="pied-gauche">
           <img src="images/bulle.png" alt="">
-          <span>Agence WebBot — contact@mastackpro.pro</span>
+          <span>Agence WebBot — <a href="mailto:contact@agencewebbot.com" style="text-decoration:underline">contact@agencewebbot.com</a></span>
         </div>
         <div class="pied-droite">
           <a class="ic" href="https://www.facebook.com/61594182764065" target="_blank" rel="noopener">FB</a>
